@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('temperatures', '0001_initial'),
+        ('monitoring', '0001_initial'),
     ]
 
     operations = [

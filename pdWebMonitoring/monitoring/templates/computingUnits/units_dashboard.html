@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<head>
+<head xmlns="http://www.w3.org/1999/html">
   <title>+Degree - temperature monitoring</title>
   <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
   <script>
 
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
-
-    //Sensors ids and names
-    sensor1_id = '28-0217c038c3ff';
-    sensor2_id = '28-0117c052c7ff';
-    sensor3_id = '28-0117c01cc9ff';
-    sensor4_id = '28-0117c052ecff';
-    sensor5_id = '28-0217c067e9ff';
 
     // Temperature channel
     temperature_monitoring_channel = "temp-channel"
@@ -35,26 +28,12 @@
       document.getElementById('sensor2').innerHTML = data.message;
     });
 
-    channel.bind(sensor3_id, function(data) {
-      document.getElementById('sensor3').innerHTML = data.message;
-    });
-
-    channel.bind(sensor4_id, function(data) {
-      document.getElementById('sensor4').innerHTML = data.message;
-    });
-
-    channel.bind(sensor5_id, function(data) {
-      document.getElementById('sensor5').innerHTML = data.message;
-    });
   </script>
 </head>
 <body>
-  <h1>Live Temperatures</h1>
+  <h1>Live Unit Processes</h1>
   <p>
-    <p id="sensor1">Temperature 1</p>
-    <p id="sensor2">Temperature 2</p>
-    <p id="sensor3">Temperature 3</p>
-    <p id="sensor4">Temperature 4</p>
-    <p id="sensor5">Temperature 5</p>
+    <p>Unit 1 : <b id="unit1"> process X </b></p>
+    <p>Unit 2 : <b id="unit2"> application Y </b></p>
   </p>
 </body>

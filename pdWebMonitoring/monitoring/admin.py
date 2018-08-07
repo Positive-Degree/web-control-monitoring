@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from .models import Temperature
+from .models import Sensor
 
 # admin.site.register(Temperature)

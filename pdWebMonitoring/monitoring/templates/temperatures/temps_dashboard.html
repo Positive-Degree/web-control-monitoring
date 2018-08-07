@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+  <title>+Degree - temperature monitoring</title>
+  <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    //Sensors ids and names
+    sensor1_id = '28-0217c038c3ff';
+    sensor2_id = '28-0117c052c7ff';
+    sensor3_id = '28-0117c01cc9ff';
+    sensor4_id = '28-0117c052ecff';
+    sensor5_id = '28-0217c067e9ff';
+
+    // Temperature channel
+    temperature_monitoring_channel = "temp-channel"
+
+    var pusher = new Pusher('9c3b69d78c3088e46d6c', {
+      cluster: 'us2',
+      encrypted: true
+    });
+
+    //Temperature update channel
+    var channel = pusher.subscribe(temperature_monitoring_channel);
+
+    //Individual sensor measures events bindings
+
+    channel.bind(sensor1_id, function(data) {
+      document.getElementById('sensor1').innerHTML = data.message;
+    });
+
+    channel.bind(sensor2_id, function(data) {
+      document.getElementById('sensor2').innerHTML = data.message;
+    });
+
+    channel.bind(sensor3_id, function(data) {
+      document.getElementById('sensor3').innerHTML = data.message;
+    });
+
+    channel.bind(sensor4_id, function(data) {
+      document.getElementById('sensor4').innerHTML = data.message;
+    });
+
+    channel.bind(sensor5_id, function(data) {
+      document.getElementById('sensor5').innerHTML = data.message;
+    });
+  </script>
+</head>
+<body>
+  <h1>Live Temperatures</h1>
+  <p>
+    <p>Sensor 1 : <b id="sensor1"> - </b></p>
+    <p>Sensor 2 : <b id="sensor2"> - </b></p>
+    <p>Sensor 3 : <b id="sensor3"> Temperature 3 </b></p>
+    <p>Sensor 4 : <b id="sensor4"> Temperature 4 </b></p>
+    <p>Sensor 5 : <b id="sensor5"> Temperature 5 </b></p>
+  </p>
+</body>

@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'pdWebMonitoring.temperatures.apps.TemperaturesConfig',
+    'pdWebMonitoring.monitoring.apps.TemperaturesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'pdWebMonitoring.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'pdWebMonitoring/temperatures/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'pdWebMonitoring/monitoring/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
