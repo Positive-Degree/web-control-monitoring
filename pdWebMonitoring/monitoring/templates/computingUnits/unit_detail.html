@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>unit control</title>
+</head>
+<body>
+    <h1>Unit Control : {{ unit.name }} - {{ unit.id }}</h1>
+    <h2>IP address : {{ unit.ip_address }}</h2>
+
+    <p>
+        Change the current running application :
+        <form method='post' action={% url 'monitoring:unit_detail' unit.id %}>
+        {% csrf_token %}
+        <select name="processchange">
+            <option value="mining">Cryptocurrency Mining</option>
+            <option value="gaming">Gaming</option>
+            <option value="webhosting">Web Hosting</option>
+        </select>
+        <input type="submit" value="Submit" >
+        </form>
+    </p>
+</body>
+</html>

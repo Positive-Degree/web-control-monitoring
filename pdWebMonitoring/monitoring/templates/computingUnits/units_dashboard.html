@@ -30,10 +30,14 @@
 
   </script>
 </head>
+
 <body>
-  <h1>Live Unit Processes</h1>
-  <p>
-    <p>Unit 1 : <b id="unit1"> process X </b></p>
-    <p>Unit 2 : <b id="unit2"> application Y </b></p>
-  </p>
+  <h1>Unit Processes</h1>
+
+  <ul>
+      {% for unit in units %}
+          <li><a href= {% url 'monitoring:unit_detail' unit.unit_id %}>{{ unit.name }}</a> :
+              <b id={{ unit.running_process }}> current running process</b></li>
+      {% endfor %}
+  </ul>
 </body>

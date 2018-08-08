@@ -28,33 +28,33 @@
     //Individual sensor measures events bindings
 
     channel.bind(sensor1_id, function(data) {
-      document.getElementById('sensor1').innerHTML = data.message;
+      document.getElementById(sensor1_id).innerHTML = data.message;
     });
 
     channel.bind(sensor2_id, function(data) {
-      document.getElementById('sensor2').innerHTML = data.message;
+      document.getElementById(sensor2_id).innerHTML = data.message;
     });
 
     channel.bind(sensor3_id, function(data) {
-      document.getElementById('sensor3').innerHTML = data.message;
+      document.getElementById(sensor3_id).innerHTML = data.message;
     });
 
     channel.bind(sensor4_id, function(data) {
-      document.getElementById('sensor4').innerHTML = data.message;
+      document.getElementById(sensor4_id).innerHTML = data.message;
     });
 
     channel.bind(sensor5_id, function(data) {
-      document.getElementById('sensor5').innerHTML = data.message;
+      document.getElementById(sensor5_id).innerHTML = data.message;
     });
   </script>
 </head>
 <body>
   <h1>Live Temperatures</h1>
-  <p>
-    <p>Sensor 1 : <b id="sensor1"> - </b></p>
-    <p>Sensor 2 : <b id="sensor2"> - </b></p>
-    <p>Sensor 3 : <b id="sensor3"> Temperature 3 </b></p>
-    <p>Sensor 4 : <b id="sensor4"> Temperature 4 </b></p>
-    <p>Sensor 5 : <b id="sensor5"> Temperature 5 </b></p>
-  </p>
+
+  <ul>
+      {% for sensor in sensors %}
+          <li><a href= {% url 'monitoring:sensor_detail' sensor.sensor_id %}>{{ sensor.name }}</a> : <b id={{ sensor.sensor_id }}> live temp</b></li>
+      {% endfor %}
+  </ul>
+
 </body>
