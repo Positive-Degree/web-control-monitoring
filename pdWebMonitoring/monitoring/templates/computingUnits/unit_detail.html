@@ -7,10 +7,11 @@
 <body>
     <h1>Unit Control : {{ unit.name }} - {{ unit.id }}</h1>
     <h2>IP address : {{ unit.ip_address }}</h2>
+    <h2>Current running process : {{ unit.running_process }}</h2>
 
     <p>
         Change the current running application :
-        <form method='post' action={% url 'monitoring:unit_detail' unit.id %}>
+        <form method='post' action={% url 'monitoring:unit_detail' unit.unit_id %}>
         {% csrf_token %}
         <select name="processchange">
             <option value="mining">Cryptocurrency Mining</option>
