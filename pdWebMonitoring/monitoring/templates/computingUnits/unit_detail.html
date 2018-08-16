@@ -5,20 +5,22 @@
     <title>unit control</title>
 </head>
 <body>
-    <h1>Unit Control : {{ unit.name }} - {{ unit.id }}</h1>
+    <h1>Unit Control : {{ unit.name }} - {{ unit.unit_id }}</h1>
     <h2>IP address : {{ unit.ip_address }}</h2>
-    <h2>Current running process : {{ unit.running_process }}</h2>
+
+{#  TODO: AJAX request to fetch the runnning process directly and update it live  #}
+    <h2>Current running process : <code id="process-label">{{ unit.running_process }}</code></h2>
 
     <p>
         Change the current running application :
-        <form method='post' action={% url 'monitoring:unit_detail' unit.unit_id %}>
+        <form id="processForm" method='post' action={% url 'monitoring:unit_detail' unit.unit_id %}>
         {% csrf_token %}
-        <select name="processchange">
+        <select id="selector" name="processchange">
             <option value="mining">Cryptocurrency Mining</option>
             <option value="gaming">Gaming</option>
             <option value="webhosting">Web Hosting</option>
         </select>
-        <input type="submit" value="Submit" >
+        <input onclick="location.reload()" type="submit" value="Change Process" >
         </form>
     </p>
 </body>

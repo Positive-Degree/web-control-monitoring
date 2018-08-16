@@ -15,7 +15,7 @@ class ComputingUnit(models.Model):
 
 
 class Sensor(models.Model):
-    sensor_id = models.AutoField(primary_key=True, max_length=30)
+    sensor_id = models.CharField(primary_key=True, max_length=20)
     unit = models.ForeignKey(ComputingUnit, on_delete=models.CASCADE, null=True)
     name = models.CharField(default="Sensor", max_length=30)
 
