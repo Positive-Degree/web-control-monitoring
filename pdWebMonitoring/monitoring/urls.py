@@ -9,9 +9,4 @@ urlpatterns = [
     path('units/', views.units_monitoring, name='unit_monitoring'),
     path('units/<str:unit_id>/', views.unit_detail, name='unit_detail'),
     path('temperatures/<str:sensor_id>/', views.sensor_detail, name='sensor_detail'),
-
-
-    # With sensor details page
-    # path('sensor/<str:sensor_id>', views.temperatures_monitoring, name='temp_monitoring'),
-
-]
+    ]

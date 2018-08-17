@@ -4,8 +4,6 @@ from django.core import serializers
 from .models import ComputingUnit
 from .models import Sensor
 
-import pdWebMonitoring.networkControl.unit_control as unit_control
-
 
 def temperatures_monitoring(request):
     sensor_list = Sensor.objects.all()
@@ -35,11 +33,7 @@ def unit_detail(request, unit_id):
 
     # A client has changed that unit's data
     if request.method == "POST":
-
-        unit_control.update_db_unit(request.POST, unit_id)
-
-        # controller = UnitController(request.POST, db_unit)
-        # controller.apply_unit_changes()
+        update_unit_process(request.POST, unit_id)
 
     # A computing unit requests its unit's data to stay updated
     elif request.method == "GET" and request.META.get("HTTP_UNIT_UPDATE") == "True":
@@ -49,3 +43,14 @@ def unit_detail(request, unit_id):
 
     context = {'unit': db_unit}
     return render(request, 'computingUnits/unit_detail.html', context)
+
+
+# Updates the unit in the database
+def update_unit_process(unit_attributes, unit_id):
+
+    unit_to_update = ComputingUnit.objects.get(unit_id=unit_id)
+
+    # Change unit process
+    new_unit_process = unit_attributes.get('processchange')
+    unit_to_update.running_process = new_unit_process
+    unit_to_update.save()
