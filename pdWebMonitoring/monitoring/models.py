@@ -18,6 +18,7 @@ class Sensor(models.Model):
     sensor_id = models.CharField(primary_key=True, max_length=20)
     unit = models.ForeignKey(ComputingUnit, on_delete=models.CASCADE, null=True)
     name = models.CharField(default="Sensor", max_length=30)
+    temperature = models.FloatField(default=0.0)
 
     def __str__(self):
         return "%s - %s" % (self.sensor_id, self.name)

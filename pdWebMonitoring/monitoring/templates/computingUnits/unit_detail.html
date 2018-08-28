@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <title>unit control</title>
 </head>
+<script>
+    function changeProcess(process) {
+        document.getElementById('process-label').innerText = process;
+    }
+
+</script>
 <body>
     <h1>Unit Control : {{ unit.name }} - {{ unit.unit_id }}</h1>
     <h2>IP address : {{ unit.ip_address }}</h2>
 
-{#  TODO: AJAX request to fetch the runnning process directly and update it live  #}
-    <h2>Current running process : <code id="process-label">{{ unit.running_process }}</code></h2>
+    <h2 id="processlabel">Current running process : <code id="process-label">{{ unit.running_process }}</code></h2>
 
     <p>
         Change the current running application :
-        <form id="processForm" method='post' action={% url 'monitoring:unit_detail' unit.unit_id %}>
+        <form id="processForm" method='post' onsubmit="return false" action={% url 'monitoring:unit_detail' unit.unit_id %}>
         {% csrf_token %}
         <select id="selector" name="processchange">
             <option value="mining">Cryptocurrency Mining</option>
             <option value="gaming">Gaming</option>
             <option value="webhosting">Web Hosting</option>
         </select>
-        <input onclick="location.reload()" type="submit" value="Change Process" >
+        <input onclick="changeProcess(document.getElementById('selector').value)" type="submit" value="Change Process" >
         </form>
     </p>
 </body>

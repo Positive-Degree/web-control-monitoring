@@ -24,6 +24,7 @@ media
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/jsLibraryMappings.xml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/

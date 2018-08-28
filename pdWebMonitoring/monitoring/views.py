@@ -54,3 +54,10 @@ def update_unit_process(unit_attributes, unit_id):
     new_unit_process = unit_attributes.get('processchange')
     unit_to_update.running_process = new_unit_process
     unit_to_update.save()
+
+
+def update_sensor_temperature(temperature, sensor_id):
+    sensor_to_update = Sensor.objects.get(sensor_id=sensor_id)
+
+    sensor_to_update.temperature = temperature
+    sensor_to_update.save()
