@@ -18,7 +18,7 @@
 
     <p>
         Change the current running application :
-        <form id="processForm" method='post' onsubmit="return false" action={% url 'monitoring:unit_detail' unit.unit_id %}>
+        <form id="processForm" method='post' action={% url 'monitoring:unit_detail' unit.unit_id %}>
         {% csrf_token %}
         <select id="selector" name="processchange">
             <option value="mining">Cryptocurrency Mining</option>
