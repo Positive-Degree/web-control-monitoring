@@ -5,27 +5,79 @@
     <title>unit control</title>
 </head>
 <script>
-    function changeProcess(process) {
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
+
+    function refresh() {
+        sleep(2000);
+        document.location.reload();
+    }
+
+    function changeControlMode(control_mode) {
+        var checked = $('input[name=controlmode]:checked').val();
+        document.getElementById('controlmode-label').innerText = checked;
+    }
+
+    function adjustElements(control_mode, process){
+
+        adjustControlMode(control_mode);
+        adjustProcess(process);
+
+    }
+
+    function adjustProcess(process) {
         document.getElementById('process-label').innerText = process;
     }
 
+    function adjustControlMode(control_mode){
+
+        if (control_mode == "autonomous"){
+            document.getElementById('selector').disabled = true;
+            document.getElementById('processsubmit').disabled = true;
+            document.getElementById('auto-radio').checked = true;
+        }
+
+        else {
+            document.getElementById('selector').disabled = false;
+            document.getElementById('processsubmit').disabled = false;
+            document.getElementById('manual-radio').checked = true;
+        }
+    }
 </script>
-<body>
+<body onload="adjustElements('{{ unit.control_mode }}', '{{ unit.running_process }}')">
     <h1>Unit Control : {{ unit.name }} - {{ unit.unit_id }}</h1>
     <h2>IP address : {{ unit.ip_address }}</h2>
 
     <h2 id="processlabel">Current running process : <code id="process-label">{{ unit.running_process }}</code></h2>
+    <h2 id="controlmodelabel">Current control mode : <code id="controlmode-label">{{ unit.control_mode }}</code></h2>
 
     <p>
-        Change the current running application :
-        <form id="processForm" method='post' action={% url 'monitoring:unit_detail' unit.unit_id %}>
+        <form method='post' action={% url 'monitoring:unit_detail' unit.unit_id %}>
         {% csrf_token %}
-        <select id="selector" name="processchange">
-            <option value="mining">Cryptocurrency Mining</option>
-            <option value="gaming">Gaming</option>
-            <option value="webhosting">Web Hosting</option>
-        </select>
-        <input onclick="changeProcess(document.getElementById('selector').value)" type="submit" value="Change Process" >
+            <select id="selector" name="processchange">
+                <option value="mining">Cryptocurrency Mining</option>
+                <option value="gaming">Gaming</option>
+                <option value="webhosting">Web Hosting</option>
+            </select>
+            <input id="processsubmit" onclick="adjustProcess(document.getElementById('selector').value)" type="submit" value="Change Process" >
+        </form><br>
+        <form method="post" action={% url 'monitoring:unit_detail' unit.unit_id %} >
+        {% csrf_token %}
+            <label>
+                <input type="radio" id="auto-radio" name="controlmode" value="autonomous">
+            </label> Autonomous Control
+            <label>
+                <input type="radio" id="manual-radio" name="controlmode" value="manual" >
+            </label> Manual Control
+            <input onclick="changeControlMode('{{ unit.control_mode }}')" type="submit" value="Change control mode" >
+
         </form>
     </p>
 </body>

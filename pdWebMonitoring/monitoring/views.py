@@ -33,7 +33,7 @@ def unit_detail(request, unit_id):
 
     # A client has changed that unit's data
     if request.method == "POST":
-        update_unit_process(request.POST, unit_id)
+        update_unit(request.POST, unit_id)
 
     # A computing unit requests its unit's data to stay updated
     elif request.method == "GET" and request.META.get("HTTP_UNIT_UPDATE") == "True":
@@ -46,13 +46,18 @@ def unit_detail(request, unit_id):
 
 
 # Updates the unit in the database
-def update_unit_process(unit_attributes, unit_id):
+def update_unit(unit_attributes, unit_id):
 
     unit_to_update = ComputingUnit.objects.get(unit_id=unit_id)
 
     # Change unit process
-    new_unit_process = unit_attributes.get('processchange')
-    unit_to_update.running_process = new_unit_process
+    if unit_attributes.get('processchange') is not None:
+        unit_to_update.running_process = unit_attributes.get('processchange')
+
+    # Change unit control mode
+    if unit_attributes.get('controlmode') is not None:
+            unit_to_update.control_mode = unit_attributes.get('controlmode')
+
     unit_to_update.save()
 
 
